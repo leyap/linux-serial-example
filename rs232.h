@@ -46,7 +46,7 @@ extern "C" {
 
 
 
-#ifdef __linux__
+#ifndef __win32__
 
 #include <termios.h>
 #include <sys/ioctl.h>
@@ -57,9 +57,9 @@ extern "C" {
 #include <limits.h>
 
 #else
-
+#ifdef _win32
 #include <windows.h>
-
+#endif
 #endif
 
 int serialBegin (int, int, int);
@@ -68,13 +68,13 @@ int serialWriteByte (int, unsigned char);
 int serialWrite (int, unsigned char *, int);
 void serialClose (int);
 void serialPrint (int, const char *);
-int RS232_IsDCDEnabled(int);
-int RS232_IsCTSEnabled(int);
-int RS232_IsDSREnabled(int);
-void RS232_enableDTR(int);
-void RS232_disableDTR(int);
-void RS232_enableRTS(int);
-void RS232_disableRTS(int);
+int serialIsDCDEnabled(int);
+int serialIsCTSEnabled(int);
+int serialIsDSREnabled(int);
+void serialEnableDTR(int);
+void serialDisableDTR(int);
+void serialEnableRTS(int);
+void serialDisableRTS(int);
 
 
 #ifdef __cplusplus

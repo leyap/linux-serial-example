@@ -38,7 +38,7 @@
 
 
 
-#ifdef __linux__   /* Linux */
+#ifndef __linux__   /* Linux */
 
 
 int Cport[30],
@@ -236,7 +236,7 @@ void serialClose (int comport_number)
 http://linux.die.net/man/4/tty_ioctl
 */
 
-int RS232_IsDCDEnabled(int comport_number)
+int serialIsDCDEnabled(int comport_number)
 {
 	int status;
 
@@ -246,7 +246,7 @@ int RS232_IsDCDEnabled(int comport_number)
 	else return(0);
 }
 
-int RS232_IsCTSEnabled(int comport_number)
+int serialIsCTSEnabled(int comport_number)
 {
 	int status;
 
@@ -256,7 +256,7 @@ int RS232_IsCTSEnabled(int comport_number)
 	else return(0);
 }
 
-int RS232_IsDSREnabled(int comport_number)
+int serialIsDSREnabled(int comport_number)
 {
 	int status;
 
@@ -266,7 +266,7 @@ int RS232_IsDSREnabled(int comport_number)
 	else return(0);
 }
 
-void RS232_enableDTR(int comport_number)
+void serialEnableDTR(int comport_number)
 {
 	int status;
 
@@ -283,7 +283,7 @@ void RS232_enableDTR(int comport_number)
 	}
 }
 
-void RS232_disableDTR(int comport_number)
+void serialDisableDTR(int comport_number)
 {
 	int status;
 
@@ -300,7 +300,7 @@ void RS232_disableDTR(int comport_number)
 	}
 }
 
-void RS232_enableRTS(int comport_number)
+void serialEnableRTS(int comport_number)
 {
 	int status;
 
@@ -317,7 +317,7 @@ void RS232_enableRTS(int comport_number)
 	}
 }
 
-void RS232_disableRTS(int comport_number)
+void serialDisableRTS(int comport_number)
 {
 	int status;
 
@@ -337,6 +337,7 @@ void RS232_disableRTS(int comport_number)
 
 #else         /* windows */
 
+#ifdef _win32
 
 HANDLE Cport[16];
 
@@ -492,7 +493,7 @@ void serialClose (int comport_number)
 http://msdn.microsoft.com/en-us/library/windows/desktop/aa363258%28v=vs.85%29.aspx
 */
 
-int RS232_IsDCDEnabled(int comport_number)
+int serialIsDCDEnabled(int comport_number)
 {
 	int status;
 
@@ -503,7 +504,7 @@ int RS232_IsDCDEnabled(int comport_number)
 }
 
 
-int RS232_IsCTSEnabled(int comport_number)
+int serialIsCTSEnabled(int comport_number)
 {
 	int status;
 
@@ -514,7 +515,7 @@ int RS232_IsCTSEnabled(int comport_number)
 }
 
 
-int RS232_IsDSREnabled(int comport_number)
+int serialIsDSREnabled(int comport_number)
 {
 	int status;
 
@@ -525,30 +526,31 @@ int RS232_IsDSREnabled(int comport_number)
 }
 
 
-void RS232_enableDTR(int comport_number)
+void serialEnableDTR(int comport_number)
 {
 	EscapeCommFunction(Cport[comport_number], SETDTR);
 }
 
 
-void RS232_disableDTR(int comport_number)
+void serialDisableDTR(int comport_number)
 {
 	EscapeCommFunction(Cport[comport_number], CLRDTR);
 }
 
 
-void RS232_enableRTS(int comport_number)
+void serialEnableRTS(int comport_number)
 {
 	EscapeCommFunction(Cport[comport_number], SETRTS);
 }
 
 
-void RS232_disableRTS(int comport_number)
+void serialDisableRTS(int comport_number)
 {
 	EscapeCommFunction(Cport[comport_number], CLRRTS);
 }
 
 
+#endif
 #endif
 
 

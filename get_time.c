@@ -1,5 +1,6 @@
-#include <sys/time.h>
+//#include <sys/time.h>
 #include <time.h>
+#include "get_time.h"
 
 int gettimeofday (struct timeval *tv, struct timezone *tz);
 
